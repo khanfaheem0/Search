@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Parameter Configuration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <main class="container">
+        <div class="glass-card">
+            <header>
+                <h1>Search Configuration</h1>
+                <p>Configure your business search parameters below.</p>
+            </header>
+
+            <form id="searchForm">
+                <!-- Business Name -->
+                <div class="form-group">
+                    <label for="businessName">Business Name <span class="required">*</span></label>
+                    <input type="text" id="businessName" name="businessName"
+                        placeholder="Plumber, HVAC, Electrician, etc." required>
+                    <p class="hint">Separate multiple businesses with commas.</p>
+                </div>
+
+                <!-- Location -->
+                <div class="form-group">
+                    <label for="location">Location <span class="required">*</span></label>
+                    <input type="text" id="location" name="location" placeholder="Texas, Florida, USA" required>
+                </div>
+
+                <!-- Enable Filters Toggle -->
+                <div class="form-group toggle-group">
+                    <label for="enableFilters" class="toggle-label">
+                        <span>Enable Filters</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="enableFilters" name="enableFilters">
+                            <span class="slider"></span>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Conditional Fields Container -->
+                <div id="filterFields" class="hidden">
+                    <div class="grid-row">
+                        <!-- Minimum Reviews -->
+                        <div class="form-group">
+                            <label for="minReviews">Minimum Reviews <span class="required">*</span></label>
+                            <input type="number" id="minReviews" name="minReviews" placeholder="50" min="0">
+                        </div>
+
+                        <!-- Minimum Ratings -->
+                        <div class="form-group">
+                            <label for="minRatings">Minimum Ratings <span class="required">*</span></label>
+                            <input type="number" id="minRatings" name="minRatings" placeholder="1-5" step="0.1" min="1"
+                                max="5">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Start -->
+                <div class="form-group">
+                    <label for="startParam">Start Offset <span class="required">*</span></label>
+                    <input type="number" id="startParam" name="startParam" placeholder="0" required>
+                    <p class="hint">Must be a multiple of 20 (0, 20, 40, ...)</p>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">
+                        <span>Gather Leads</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <!-- Loading State -->
+                    <div id="loadingIndicator" class="hidden">Sending...</div>
+                </div>
+            </form>
+
+            <div id="resultMessage" class="hidden"></div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
