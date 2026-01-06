@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Webhook URL provided by user
-            const webhookUrl = 'https://faheemkhanfida055.app.n8n.cloud/webhook-test/lead-generation';
+            const webhookUrl = 'https://faheemkhanfida055.app.n8n.cloud/webhook/lead-generation';
 
             console.log("Submitting payload:", JSON.stringify(finalPayload, null, 2));
 
