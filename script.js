@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const payloadObj = {
             "business_types": businessTypes,
             "location": location,
+            "Type": formData.get('type'),
             "include_filters": includeFilters,
             "Start": startValue
         };
@@ -104,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Webhook URL provided by user
-            const webhookUrl = 'https://faheemkhanfida055.app.n8n.cloud/webhook/lead-generation';
+            const webhookUrl = 'https://novaconpharma.app.n8n.cloud/webhook/lead-generation';
 
             console.log("Submitting payload:", JSON.stringify(finalPayload, null, 2));
 
