@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Re-apply toggle logic since reset might change checkbox state
             toggleFilterFields();
 
-            resultMessage.innerHTML = 'Success! Data sent (<a href="https://docs.google.com/spreadsheets/d/1eKasmLy4L0PTJgaPPCOKBUHT26zRXUXu8YNQ_wrGktI/edit?usp=sharing" target="_blank" style="color: inherit; text-decoration: underline;">Check CRM</a>)';
+            resultMessage.innerHTML = 'Success! Data sent (Check CRM)';
             resultMessage.classList.remove('hidden');
             resultMessage.classList.add('success');
 
