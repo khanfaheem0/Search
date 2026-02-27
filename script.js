@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Webhook URL provided by user
-            const webhookUrl = 'https://novaconpharma.app.n8n.cloud/webhook/lead-generation';
+            const webhookUrl = 'https://yaward241.app.n8n.cloud/webhook/lead-generation';
 
             console.log("Submitting payload:", JSON.stringify(finalPayload, null, 2));
 
