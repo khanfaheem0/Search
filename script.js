@@ -10,6 +10,88 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultMessage = document.getElementById('resultMessage');
     const submitBtn = form.querySelector('button[type="submit"]');
 
+    // Settings Elements
+    const settingsToggle = document.getElementById('settingsToggle');
+    const settingsModal = document.getElementById('settingsModal');
+    const closeSettings = document.getElementById('closeSettings');
+    const webhookUrlInput = document.getElementById('webhookUrlInput');
+    const testWebhookBtn = document.getElementById('testWebhook');
+    const saveWebhookBtn = document.getElementById('saveWebhook');
+    const testStatus = document.getElementById('testStatus');
+
+    // Default Webhook
+    const DEFAULT_WEBHOOK = 'https://yaward241.app.n8n.cloud/webhook/lead-generation';
+
+    // Load saved webhook or set default
+    function getActiveWebhook() {
+        return localStorage.getItem('activeWebhook') || DEFAULT_WEBHOOK;
+    }
+
+    // Initialize Webhook Input
+    webhookUrlInput.value = getActiveWebhook();
+
+    // Modal Logic
+    settingsToggle.addEventListener('click', () => {
+        settingsModal.classList.remove('hidden');
+        testStatus.classList.add('hidden');
+        saveWebhookBtn.disabled = true; // Force test before each save
+    });
+
+    closeSettings.addEventListener('click', () => {
+        settingsModal.classList.add('hidden');
+    });
+
+    // Close on outside click
+    window.addEventListener('click', (e) => {
+        if (e.target === settingsModal) {
+            settingsModal.classList.add('hidden');
+        }
+    });
+
+    // Test Webhook Logic
+    testWebhookBtn.addEventListener('click', async () => {
+        const urlToCheck = webhookUrlInput.value.trim();
+        if (!urlToCheck) {
+            alert('Please enter a webhook URL');
+            return;
+        }
+
+        testWebhookBtn.disabled = true;
+        testStatus.textContent = 'Testing...';
+        testStatus.className = 'status-box';
+        testStatus.classList.remove('hidden');
+
+        try {
+            const response = await fetch(urlToCheck, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ test: true, timestamp: new Date().toISOString() })
+            });
+
+            if (response.ok) {
+                testStatus.textContent = 'Webhook is working!';
+                testStatus.classList.add('success');
+                saveWebhookBtn.disabled = false;
+            } else {
+                throw new Error(`Status ${response.status}`);
+            }
+        } catch (error) {
+            testStatus.textContent = 'Test failed: ' + error.message;
+            testStatus.classList.add('error');
+            saveWebhookBtn.disabled = true;
+        } finally {
+            testWebhookBtn.disabled = false;
+        }
+    });
+
+    // Save Webhook Logic
+    saveWebhookBtn.addEventListener('click', () => {
+        const newUrl = webhookUrlInput.value.trim();
+        localStorage.setItem('activeWebhook', newUrl);
+        alert('Webhook updated successfully!');
+        settingsModal.classList.add('hidden');
+    });
+
     // Toggle Filter Fields Visibility
     function toggleFilterFields() {
         if (enableFiltersCheckbox.checked) {
@@ -104,8 +186,8 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.disabled = true;
 
         try {
-            // Webhook URL provided by user
-            const webhookUrl = 'https://yaward241.app.n8n.cloud/webhook/lead-generation';
+            // Webhook URL: Use stored URL or fallback to default
+            const webhookUrl = getActiveWebhook();
 
             console.log("Submitting payload:", JSON.stringify(finalPayload, null, 2));
 
